@@ -1,9 +1,9 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+<script lang="ts" setup>
+import HelloWorld from '@/components/HelloWorld.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
+  <main class="bg-black min-h-screen flex flex-col justify-center items-center">
+    <HelloWorld msg="Challenge" />
   </main>
 </template>
