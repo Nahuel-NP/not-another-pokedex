@@ -4,6 +4,7 @@ import pokeApi from '@/api/pokeApi'
 import type { PokeResponse, Pokemon } from '@/interfaces/pokeapi'
 import { getPokemonInfo } from '../utils/getPokemon'
 import PokemonCard from '@/components/PokemonCard.vue'
+import LoaderBall from '@/components/shared/LoaderBall.vue'
 
 const pokemons = ref<Pokemon[]>([])
 const isLoading = ref(true)
@@ -25,17 +26,21 @@ const getPokemons = async () => {
   pokemons.value = results
 }
 
-
 getPokemons()
 </script>
 
 <template>
-  <main class=" min-h-screen flex flex-col justify-center items-center ">
-    <div class="fixed top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]"></div>    <div v-if="!isLoading" class="grid px-4 container grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 w-full place-items-center">
+  <main class="min-h-screen flex flex-col justify-center items-center">
+    <div
+      class="fixed top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]"
+    ></div>
+    <div
+      v-if="!isLoading"
+      class="grid px-4 container grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 w-full place-items-center"
+    >
       <PokemonCard v-for="pokemon in pokemons" :key="pokemon.id" :pokemon="pokemon" />
     </div>
-    <div v-else>
-      <p class="text-white">Loading...</p>
-    </div>
+    
+    <LoaderBall v-else />
   </main>
 </template>
