@@ -31,7 +31,7 @@ const getPokemons = async () => {
 const { data, isFetching } = useQuery({
   queryKey: ['pokemons'],
   queryFn: getPokemons,
-  staleTime: 60 * 1000
+  staleTime: 60 * 1000 * 10 //10 minutos
 })
 </script>
 
