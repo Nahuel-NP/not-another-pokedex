@@ -17,21 +17,22 @@ const showDetails = (pokemon: Pokemon) => {
 
 <template>
   <div
-    class="w-full bg-teal-600 max-w-xs rounded-xl p-4 cursor-pointer"
+    class="w-full bg-teal-500 max-w-xs rounded-xl p-4 cursor-pointer hover:scale-105 transition-all hover:bg-teal-400 relative"
     @click="showDetails(pokemon)"
   >
-    <h4 class="text-white text-center font-semibold">#{{ pokemon.id }} - {{ pokemon.name }}</h4>
-    <div class="flex gap-2 justify-center">
+    <p class="absolute text-xs top-1 right-2 text-white">#{{ pokemon.id }}</p>
+    <h4 class="text-white text-lg capitalize text-center font-bold">{{ pokemon.name }}</h4>
+    <p class="flex gap-2 text-gray-800 justify-center">
       <span v-for="pokemonType in pokemon.types" :key="pokemon.name + pokemonType.type.name">{{
         pokemonType.type.name
       }}</span>
-    </div>
+    </p>
     <img
       :src="pokemon.sprites.other?.dream_world.front_default"
       :style="{ viewTransitionName: pokemon.name }"
-      class="w-full aspect-square"
+      class="w-full aspect-square my-1"
       :alt="`pokemon ${pokemon.name}`"
     />
-    <p class="text-center">weight: {{ pokemon.weight }}</p>
+    <p class="text-center">weight: {{ pokemon.weight }} lbs.</p>
   </div>
 </template>
