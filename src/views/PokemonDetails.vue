@@ -4,12 +4,11 @@ import { useRoute } from 'vue-router'
 import { usePokemonStore } from '../stores/pokemonStore'
 import { getPokemonInfo } from '../utils/getPokemon'
 import LoaderBall from '@/components/shared/LoaderBall.vue'
-import { useTransition } from '../utils/useTransition';
+import { useTransition } from '../utils/useTransition'
 
 const store = usePokemonStore()
 const route = useRoute()
 const isLoading = ref(false)
-
 
 const getPokemon = async (name: string) => {
   isLoading.value = true
@@ -27,7 +26,6 @@ if (!store.getActivePokemon) {
 }
 
 const { handleTransition } = useTransition()
-
 </script>
 
 <template>
@@ -36,13 +34,10 @@ const { handleTransition } = useTransition()
     <div
       class="fixed top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]"
     ></div>
-    <div
-      v-if="store.getActivePokemon"
-      class="w-full flex max-w-md p-12"
-      :style="{ viewTransitionName: store.getActivePokemon.name }"
-    >
+    <div v-if="store.getActivePokemon" class="w-full flex max-w-md p-12">
       <img
         class="w-full"
+        :style="{ viewTransitionName: store.getActivePokemon.name }"
         :src="store.getActivePokemon.sprites.other?.dream_world.front_default"
         :alt="store.getActivePokemon.name"
       />
