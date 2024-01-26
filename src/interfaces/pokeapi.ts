@@ -165,7 +165,7 @@ export interface GenerationVii {
 }
 
 export interface DreamWorld {
-  front_default: string;
+  front_default: string | null;
   front_female:  null;
 }
 

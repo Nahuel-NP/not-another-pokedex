@@ -28,7 +28,8 @@ const showDetails = (pokemon: Pokemon) => {
       }}</span>
     </p>
     <img
-      :src="pokemon.sprites.other?.dream_world.front_default"
+      :src="pokemon.sprites.other?.dream_world.front_default !== null ? pokemon.sprites.other?.dream_world.front_default:
+      pokemon.sprites.other?.['official-artwork'].front_default"
       :style="{ viewTransitionName: pokemon.name }"
       class="w-full aspect-square my-1"
       :alt="`pokemon ${pokemon.name}`"
