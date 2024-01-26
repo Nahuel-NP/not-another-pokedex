@@ -1,22 +1,21 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import pokeApi from '@/api/pokeApi'
-import type { PokeResponse, Pokemon } from '@/interfaces/pokeapi'
+import type { PokeResponse } from '@/interfaces/pokeapi'
 import { getPokemonInfo } from '../utils/getPokemonByName'
 import PokemonCard from '@/components/PokemonCard.vue'
 import SearchIcon from '@/components/icons/searchIcon.vue'
 import LoaderBall from '@/components/shared/LoaderBall.vue'
 import NextPageIcon from '@/components/icons/NextPagIcon.vue'
 import PrevPageIcon from '@/components/icons/PrevPagIcon.vue'
-import { useQuery } from '@tanstack/vue-query'
+import { useQuery, keepPreviousData } from '@tanstack/vue-query'
 
 const nameToSearch = ref('')
-
-const getPokemons = async (page: number = 1, limit: number = 151) => {
+const getPokemons = async (page: Ref<number>, limit: number = 151) => {
   const { data } = await pokeApi.get<PokeResponse>('/pokemon', {
     params: {
       limit,
-      offset: (page - 1) * limit
+      offset: (page.value - 1) * limit
     }
   })
   console.log({ data })
@@ -24,11 +23,11 @@ const getPokemons = async (page: number = 1, limit: number = 151) => {
     const pokemonResponse = await getPokemonInfo(pokemon.name)
     return pokemonResponse
   })
-
+  
   const [...results] = await Promise.all(promises)
-
+  
   const totalPages = Math.ceil(data.count / limit)
-
+  
   return {
     ...data,
     totalPages,
@@ -46,11 +45,24 @@ const searchByName = async (event: any) => {
   pokemons.value = [] */
 }
 
-const { data, isFetching } = useQuery({
-  queryKey: ['pokemons'],
-  queryFn: () => getPokemons(),
-  staleTime: 60 * 1000 * 10 //10 minutos
+const page = ref(1)
+
+const { data, isFetching, isPlaceholderData } = useQuery({
+  queryKey: ['pokemons', page],
+  queryFn: () => getPokemons(page),
+  staleTime: 60 * 1000 * 10, //10 minutos
+  placeholderData: keepPreviousData
 })
+
+const prevPage = () => {
+  page.value = Math.max(page.value - 1, 1)
+}
+
+const nextPage = () => {
+  if (!isPlaceholderData.value) {
+    page.value = page.value + 1
+  }
+}
 </script>
 
 <template>
@@ -93,14 +105,16 @@ const { data, isFetching } = useQuery({
     <nav aria-label="Page navigation" class="flex justify-center mt-8">
       <div class="flex items-center -space-x-px h-10 text-base">
         <button
+        @click="prevPage()"
           class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           <PrevPageIcon />
         </button>
         <button
           class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        ></button>
+        >{{ page }}</button>
         <button
+          @click="nextPage()"
           class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           <span class="sr-only">Next</span>
