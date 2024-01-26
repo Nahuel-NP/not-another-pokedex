@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { usePokemonStore } from '../stores/pokemonStore'
 import { getPokemonInfo } from '../utils/getPokemon'
 import LoaderBall from '@/components/shared/LoaderBall.vue'
+import { useTransition } from '../utils/useTransition';
 
 const store = usePokemonStore()
 const route = useRoute()
@@ -25,24 +26,13 @@ if (!store.getActivePokemon) {
   getPokemon(name as string)
 }
 
-const router = useRouter()
+const { handleTransition } = useTransition()
 
-const backToList = () => {
-  // @ts-ignore
-  if (!document.startViewTransition) {
-    router.push('/')
-    return
-  }
-  // @ts-ignore
-  document.startViewTransition(() => {
-    router.push('/')
-  })
-}
 </script>
 
 <template>
   <main class="min-h-screen flex flex-col justify-center items-center">
-    <button @click="backToList" class="text-white">Back</button>
+    <button @click="handleTransition('/')" class="text-white">Back</button>
     <div
       class="fixed top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]"
     ></div>
