@@ -71,7 +71,7 @@ const nextPage = () => {
       class="fixed top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]"
     ></div>
 
-    <form class="max-w-md mx-auto mb-8" @submit="searchByName">
+    <form class="max-w-lg mx-auto mb-8 px-4" @submit="searchByName">
       <div class="relative">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <SearchIcon />
