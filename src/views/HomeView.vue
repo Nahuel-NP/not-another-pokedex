@@ -32,7 +32,7 @@ const nameToSearch = ref('')
 const isFiltering = ref(false)
 const tempName = ref('')
 
-const { data: pokemonByName } = useQuery({
+const { data: pokemonByName,isError,isFetching:isFetchigPokemon } = useQuery({
   queryFn: () => searchByName(nameToSearch),
   queryKey: ['pokemon', nameToSearch],
   enabled: isFiltering,
@@ -83,22 +83,23 @@ const onUpdateInput = (value:string) =>{
       @update-input="onUpdateInput"
     />
 
-    <div v-if="pokemonByName" class="w-full">
-      <PokemonCard :pokemon="pokemonByName" class="mx-auto" />
+    <div v-if="pokemonByName" class="w-full ">
+      <PokemonCard :pokemon="pokemonByName"  class="mx-auto max-w-60" />
     </div>
     <div
-      v-if="!isFetching"
+      v-if="!isFetching && !isFiltering"
       class="grid mx-auto px-4 container grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 w-full place-items-center"
     >
       <PokemonCard v-for="pokemon in allPokemons?.results" :key="pokemon.id" :pokemon="pokemon" />
     </div>
 
-    <LoaderBall v-else />
-    <!-- <div class="grid place-items-center">
-      <PokemonCard v-if="pokemonByName" :pokemon="pokemonByName" />
-    </div> -->
+    <LoaderBall v-if="isFetching || isFetchigPokemon"/>
 
-    <nav aria-label="Page navigation" class="flex justify-center mt-8">
+    <div v-if="isError">
+      <h2 class="text-white text-center text-2xl font-semibold">Pokemon no encontrado</h2>
+    </div>
+
+    <nav aria-label="Page navigation" class="flex justify-center mt-8 " v-if="!isFiltering">
       <div class="flex items-center -space-x-px h-10 text-base">
         <button
           @click="prevPage()"
