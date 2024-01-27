@@ -17,7 +17,7 @@ const showDetails = (pokemon: Pokemon) => {
 
 <template>
   <div
-    class="w-full bg-teal-500 flex flex-col justify-between max-w-xs rounded-xl pt-5 pb-4 px-2 cursor-pointer hover:scale-105 transition-all hover:bg-teal-400 relative"
+    class="w-full bg-teal-500 bg-opacity-65 flex flex-col justify-between max-w-xs rounded-xl pt-5 pb-4 px-2 cursor-pointer hover:scale-105 transition-all hover:bg-teal-400 relative"
     @click="showDetails(pokemon)"
   >
     <p class="absolute text-xs top-1 right-2 text-white">#{{ pokemon.id }}</p>
