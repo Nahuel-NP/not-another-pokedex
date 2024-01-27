@@ -32,6 +32,7 @@ const showDetails = (pokemon: Pokemon) => {
       pokemon.sprites.other?.['official-artwork'].front_default"
       :style="{ viewTransitionName: pokemon.name }"
       class="w-full aspect-square my-1"
+      loading="lazy"
       :alt="`pokemon ${pokemon.name}`"
     />
     <p class="text-center ">weight: {{ pokemon.weight }} lbs.</p>
