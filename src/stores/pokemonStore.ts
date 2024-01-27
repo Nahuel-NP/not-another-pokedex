@@ -8,6 +8,10 @@ export const usePokemonStore = defineStore('pokemon', () => {
   function setActivePokemon(pokemon:Pokemon) {
     activePokemon.value = pokemon
   }
-
-  return { activePokemon, getActivePokemon, setActivePokemon }
+  const activePage = ref<number>(1)
+  const getActivePage = computed(() => activePage.value)
+  function setActivePage(page:number) {
+    activePage.value = page
+  }
+  return { activePokemon, getActivePokemon, setActivePokemon,activePage, getActivePage,setActivePage }
 })

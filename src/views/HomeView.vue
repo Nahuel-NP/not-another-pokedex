@@ -8,13 +8,15 @@ import NextPageIcon from '@/components/icons/NextPagIcon.vue'
 import PrevPageIcon from '@/components/icons/PrevPagIcon.vue'
 import { useQuery, keepPreviousData } from '@tanstack/vue-query'
 import { getPokemons } from '../utils/getAllPokemons'
+import { usePokemonStore } from '../stores/pokemonStore';
 
 const searchByName = async (nameToSearch: Ref<string>) => {
   const data = await getPokemonInfo(nameToSearch.value.toLowerCase())
   return data
 }
 
-const page = ref(1)
+const store = usePokemonStore()
+const page = ref(store.getActivePage)
 
 const {
   data: allPokemons,
@@ -26,7 +28,6 @@ const {
   staleTime: 60 * 1000 * 10, //10 minutos
   placeholderData: keepPreviousData
 })
-
 const nameToSearch = ref('')
 const isFiltering = ref(false)
 const tempName = ref('')
@@ -45,11 +46,13 @@ const {
 
 const prevPage = () => {
   page.value = Math.max(page.value - 1, 1)
+  store.setActivePage(page.value)
 }
 
 const nextPage = () => {
   if (!isPlaceholderData.value) {
-    page.value = page.value + 1
+    page.value = page.value + 1;
+    store.setActivePage(page.value)
   }
 }
 
