@@ -10,7 +10,6 @@ export const getPokemons = async (page: Ref<number>, limit: number = 24) => {
       offset: (page.value - 1) * limit
     }
   })
-  console.log({ data })
   const promises = data.results.map(async (pokemon) => {
     const pokemonResponse = await getPokemonInfo(pokemon.name)
     return pokemonResponse

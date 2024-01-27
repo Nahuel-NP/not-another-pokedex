@@ -11,7 +11,6 @@ import { getPokemons } from '../utils/getAllPokemons'
 
 const searchByName = async (nameToSearch: Ref<string>) => {
   const data = await getPokemonInfo(nameToSearch.value.toLowerCase())
-  console.log(data)
   return data
 }
 
