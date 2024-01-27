@@ -9,13 +9,17 @@ import { useTransition } from '../utils/useTransition'
 const store = usePokemonStore()
 const route = useRoute()
 const isLoading = ref(false)
+const hasError = ref(false)
 
 const getPokemon = async (name: string) => {
   isLoading.value = true
-  const pokemon = await getPokemonInfo(name)
-
-  if (pokemon) {
-    store.setActivePokemon(pokemon)
+  try {
+    const pokemon = await getPokemonInfo(name)
+    if (pokemon) {
+      store.setActivePokemon(pokemon)
+    }
+  } catch (error) {
+    hasError.value = true
   }
   isLoading.value = false
 }
@@ -69,6 +73,9 @@ const { handleTransition } = useTransition()
           </p>
         </div>
       </div>
+    </div>
+    <div class="flex justify-center">
+      <p class="text-white text-center text-2xl font-semibold">Pokemon no encontrado</p>
     </div>
     <LoaderBall v-if="isLoading" />
     <button @click="handleTransition('/')" class="absolute top-0 text-white">Volver</button>
