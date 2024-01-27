@@ -32,7 +32,11 @@ const nameToSearch = ref('')
 const isFiltering = ref(false)
 const tempName = ref('')
 
-const { data: pokemonByName,isError,isFetching:isFetchigPokemon } = useQuery({
+const {
+  data: pokemonByName,
+  isError,
+  isFetching: isFetchigPokemon
+} = useQuery({
   queryFn: () => searchByName(nameToSearch),
   queryKey: ['pokemon', nameToSearch],
   enabled: isFiltering,
@@ -50,8 +54,7 @@ const nextPage = () => {
   }
 }
 
-//todo: change any type
-const handleFilter = (event: any) => {
+const handleFilter = (event: SubmitEvent) => {
   event.preventDefault()
   if (tempName.value !== '') {
     isFiltering.value = true
@@ -64,7 +67,7 @@ const handlerResetFilter = () => {
   nameToSearch.value = ''
 }
 
-const onUpdateInput = (value:string) =>{
+const onUpdateInput = (value: string) => {
   tempName.value = value
 }
 </script>
@@ -83,8 +86,8 @@ const onUpdateInput = (value:string) =>{
       @update-input="onUpdateInput"
     />
 
-    <div v-if="pokemonByName" class="w-full ">
-      <PokemonCard :pokemon="pokemonByName"  class="mx-auto max-w-60" />
+    <div v-if="pokemonByName" class="w-full">
+      <PokemonCard :pokemon="pokemonByName" class="mx-auto max-w-60" />
     </div>
     <div
       v-if="!isFetching && !isFiltering"
@@ -93,13 +96,13 @@ const onUpdateInput = (value:string) =>{
       <PokemonCard v-for="pokemon in allPokemons?.results" :key="pokemon.id" :pokemon="pokemon" />
     </div>
 
-    <LoaderBall v-if="isFetching || isFetchigPokemon"/>
+    <LoaderBall v-if="isFetching || isFetchigPokemon" />
 
     <div v-if="isError">
       <h2 class="text-white text-center text-2xl font-semibold">Pokemon no encontrado</h2>
     </div>
 
-    <nav aria-label="Page navigation" class="flex justify-center mt-8 " v-if="!isFiltering">
+    <nav aria-label="Page navigation" class="flex justify-center mt-8" v-if="!isFiltering">
       <div class="flex items-center -space-x-px h-10 text-base">
         <button
           @click="prevPage()"
