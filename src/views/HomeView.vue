@@ -11,7 +11,7 @@ import PrevPageIcon from '@/components/icons/PrevPagIcon.vue'
 import { useQuery, keepPreviousData } from '@tanstack/vue-query'
 
 const nameToSearch = ref('')
-const getPokemons = async (page: Ref<number>, limit: number = 151) => {
+const getPokemons = async (page: Ref<number>, limit: number = 24) => {
   const { data } = await pokeApi.get<PokeResponse>('/pokemon', {
     params: {
       limit,
