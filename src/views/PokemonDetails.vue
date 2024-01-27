@@ -74,7 +74,7 @@ const { handleTransition } = useTransition()
         </div>
       </div>
     </div>
-    <div class="flex justify-center">
+    <div class="flex justify-center" v-if="hasError">
       <p class="text-white text-center text-2xl font-semibold">Pokemon no encontrado</p>
     </div>
     <LoaderBall v-if="isLoading" />
