@@ -1,25 +1,34 @@
-# jemersoft-challenge
+<h1 align="left">Pokedex - Challenge</h1>
 
-This template should help get you started developing with Vue 3 in Vite.
+###
 
-## Recommended IDE Setup
+<p align="left">Pokedex es una aplicación realizada en Vue Js, donde podrás encontrar tus Pokémons favoritos, la aplicación cuenta con un buscador para facilitar tu busqueda.<br>Esta aplicación hace uso de tecnologias como View Transition API, una nueva API introducidad en los navegadores para realizar transisiones de manera sencilla, como tambie de Tan Stack Vue-Query el cual se encarga de administrar el cache de las peticiones  con el fin de reducir el consumo de datos de internet.</p>
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+###
 
-## Type Support for `.vue` Imports in TS
+<h3 align="left">Tecnologías Utilizadas</h3>
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+###
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" height="40" alt="vuejs logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="40" alt="typescript logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg" height="40" alt="tailwindcss logo"  />
+</div>
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+###
 
-## Customize configuration
+<br clear="both">
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+[Live Demo](https://jemersoft-challenge.vercel.app/).
+
+###
+
+
+
 
 ## Project Setup
 
