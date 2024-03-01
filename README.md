@@ -2,7 +2,8 @@
 
 ###
 
-<p align="left">Pokedex es una aplicación realizada en Vue Js, donde podrás encontrar tus Pokémons favoritos, la aplicación cuenta con un buscador para facilitar tu busqueda.<br>Esta aplicación hace uso de tecnologias como View Transition API, una nueva API introducidad en los navegadores para realizar transisiones de manera sencilla, como tambie de Tan Stack Vue-Query el cual se encarga de administrar el cache de las peticiones  con el fin de reducir el consumo de datos de internet.</p>
+<p align="left">Pokedex es una aplicación realizada en Vue Js, donde podrás encontrar tus Pokémons favoritos, la aplicación cuenta con un buscador para facilitar tu búsqueda.
+Esta aplicación hace uso de tecnologías como View Transition API, una nueva API introducida en los navegadores para realizar transiciones de manera sencilla, como también de Tan Stack Vue-Query el cual se encarga de administrar el cache de las peticiones con el fin de reducir el consumo de datos de internet.</p>
 
 ###
 
