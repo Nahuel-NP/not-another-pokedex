@@ -17,12 +17,12 @@ const showDetails = (pokemon: Pokemon) => {
 
 <template>
   <div
-    class="w-full bg-teal-500 bg-opacity-60 flex flex-col justify-between max-w-xs rounded-xl pt-5 pb-4 px-2 cursor-pointer hover:scale-105 transition-all hover:bg-teal-500 relative"
+    class="relative flex flex-col justify-between w-full max-w-[180px] px-2 pt-5 pb-4 transition-all bg-teal-500 cursor-pointer bg-opacity-60 rounded-xl hover:scale-105 hover:bg-teal-500"
     @click="showDetails(pokemon)"
   >
-    <p class="absolute text-xs top-1 right-2 text-white">#{{ pokemon.id }}</p>
-    <h4 class="text-white text-base  capitalize text-center font-bold">{{ pokemon.name }}</h4>
-    <p class="flex gap-2 font-semibold text-gray-950 font-se justify-center">
+    <p class="absolute text-xs text-white top-1 right-2">#{{ pokemon.id }}</p>
+    <h4 class="text-base font-bold text-center text-white capitalize">{{ pokemon.name }}</h4>
+    <p class="flex justify-center gap-2 font-semibold text-gray-950 font-se">
 
       <span class="capitalize" v-for="pokemonType in pokemon.types" :key="pokemon.name + pokemonType.type.name">{{
         pokemonType.type.name
@@ -32,10 +32,10 @@ const showDetails = (pokemon: Pokemon) => {
       :src="pokemon.sprites.other?.dream_world.front_default !== null ? pokemon.sprites.other?.dream_world.front_default:
       pokemon.sprites.other?.['official-artwork'].front_default"
       :style="{ viewTransitionName: pokemon.name }"
-      class="w-full aspect-square my-1"
+      class="w-full my-1 max-w-[110px] mx-auto aspect-square"
       loading="lazy"
       :alt="`pokemon ${pokemon.name}`"
     />
-    <p class="text-center font-semibold">Peso: {{ pokemon.weight }} lbs.</p>
+    <p class="font-semibold text-center">Peso: {{ pokemon.weight }} lbs.</p>
   </div>
 </template>
