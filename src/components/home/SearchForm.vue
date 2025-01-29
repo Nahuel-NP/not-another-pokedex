@@ -27,7 +27,7 @@ const completedInputModel = computed({
 
 <template>
   <form
-    class="flex items-center max-w-lg mx-auto mb-8 px-4"
+    class="flex items-center max-w-lg px-4 mx-auto mb-8"
     @reset="handleResetFilter"
     @submit="handleFilter"
   >
@@ -35,7 +35,7 @@ const completedInputModel = computed({
       <input
         type="text"
         id="simple-search"
-        class="bg-gray-700 border border-gray-300 text-white text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full ps-4 p-2.5"
+        class="bg-gray-900 border border-gray-300 text-white text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full ps-4 p-2.5"
         placeholder="Ingresa el nombre del pokemon"
         required
         v-model="completedInputModel"
