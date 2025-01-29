@@ -40,7 +40,7 @@ const { handleTransition } = useTransition()
     ></div>
     <nav class="flex w-full text-xl max-w-5xl mx-auto px-10">
       <button
-        @click="handleTransition('/')"
+        @click="handleTransition(`/?page=${store.activePage}`)"
         class="text-white transition-transform hover:scale-105 font-bold flex flex-row"
       >
         <BackIcon class="stroke-teal-500 fill-teal-500" />

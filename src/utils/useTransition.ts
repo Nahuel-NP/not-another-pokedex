@@ -18,7 +18,7 @@ export const useTransition = ()=>{
   }
 
   return {
-    handleTransition
+    handleTransition,
   }
 
 }

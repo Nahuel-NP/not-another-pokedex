@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, type Ref } from 'vue'
+import { computed, ref, type Ref,watch } from 'vue'
 import { getPokemonInfo } from '../utils/getPokemonByName'
 import PokemonCard from '@/components/PokemonCard.vue'
 import LoaderBall from '@/components/shared/LoaderBall.vue'
@@ -9,14 +9,35 @@ import PrevPageIcon from '@/components/icons/PrevPagIcon.vue'
 import { useQuery, keepPreviousData } from '@tanstack/vue-query'
 import { getPokemons } from '../utils/getAllPokemons'
 import { usePokemonStore } from '../stores/pokemonStore';
+import { useRoute, useRouter } from 'vue-router';
+
+const store = usePokemonStore()
+const router = useRouter()
+const route = useRoute()
+
+
+const page = computed({
+  get() {
+    if (route.query.page && Number(route.query.page) > 0) {
+      return Number(route.query.page)
+    }
+    return 1
+  },
+  set(page) {
+    router.replace({ query: { page } })
+  }
+})
+
+
+
+
 
 const searchByName = async (nameToSearch: Ref<string>) => {
   const data = await getPokemonInfo(nameToSearch.value.toLowerCase())
   return data
 }
 
-const store = usePokemonStore()
-const page = ref(store.getActivePage)
+
 
 const {
   data: allPokemons,
@@ -28,6 +49,7 @@ const {
   staleTime: 60 * 1000 * 10, //10 minutos
   placeholderData: keepPreviousData
 })
+
 const nameToSearch = ref('')
 const isFiltering = ref(false)
 const tempName = ref('')
@@ -45,14 +67,29 @@ const {
 })
 
 const prevPage = () => {
-  page.value = Math.max(page.value - 1, 1)
-  store.setActivePage(page.value)
+  const newPage = Math.max(page.value - 1, 1)
+  page.value = newPage
+  store.setActivePage(newPage)
+  router.push({
+    name: 'home',
+    query: {
+      page: newPage
+    }
+  })
+
 }
 
 const nextPage = () => {
   if (!isPlaceholderData.value) {
-    page.value = page.value + 1;
-    store.setActivePage(page.value)
+    const newPage = page.value + 1
+    page.value = newPage;
+    store.setActivePage(newPage)
+    router.push({
+      name: 'home',
+      query: {
+        page: newPage
+      }
+    })
   }
 }
 
@@ -77,24 +114,17 @@ const onUpdateInput = (value: string) => {
 <template>
   <main class="min-h-screen py-8">
     <div
-      class="fixed top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]"
-    ></div>
+      class="fixed top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]">
+    </div>
 
-    <SearchForm
-      :handle-filter="handleFilter"
-      :handle-reset-filter="handlerResetFilter"
-      :is-filtering="isFiltering"
-      :temp-name="tempName"
-      @update-input="onUpdateInput"
-    />
+    <SearchForm :handle-filter="handleFilter" :handle-reset-filter="handlerResetFilter" :is-filtering="isFiltering"
+      :temp-name="tempName" @update-input="onUpdateInput" />
 
     <div v-if="pokemonByName" class="w-full">
       <PokemonCard :pokemon="pokemonByName" class="mx-auto max-w-60" />
     </div>
-    <div
-      v-if="!isFetching && !isFiltering"
-      class="grid mx-auto px-4 container grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 w-full place-items-center"
-    >
+    <div v-if="!isFetching && !isFiltering"
+      class="grid mx-auto px-4 container grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 w-full place-items-center">
       <PokemonCard v-for="pokemon in allPokemons?.results" :key="pokemon.id" :pokemon="pokemon" />
     </div>
 
@@ -106,21 +136,16 @@ const onUpdateInput = (value: string) => {
 
     <nav aria-label="Page navigation" class="flex justify-center mt-8" v-if="!isFiltering">
       <div class="flex items-center -space-x-px h-10 text-base">
-        <button
-          @click="prevPage()"
-          class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
+        <button @click="prevPage()"
+          class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
           <PrevPageIcon />
         </button>
         <button
-          class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
+          class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
           {{ page }}
         </button>
-        <button
-          @click="nextPage()"
-          class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
+        <button @click="nextPage()"
+          class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
           <span class="sr-only">Next</span>
           <NextPageIcon />
         </button>
