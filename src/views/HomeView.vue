@@ -112,16 +112,16 @@ const onUpdateInput = (value: string) => {
 </script>
 
 <template>
-  <main class="min-h-screen py-8">
+  <main class="min-h-svh py-8">
     <div
-      class="fixed top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]">
+      class="fixed top-0 z-[-2] h-svh w-screen bg-[#000000] bg-[radial-gradient(teal,#00091d_1px)] bg-[size:20px_20px]">
     </div>
 
     <SearchForm :handle-filter="handleFilter" :handle-reset-filter="handlerResetFilter" :is-filtering="isFiltering"
       :temp-name="tempName" @update-input="onUpdateInput" />
 
     <div v-if="pokemonByName" class="w-full">
-      <PokemonCard :pokemon="pokemonByName" class="mx-auto max-w-60" />
+      <PokemonCard :pokemon="pokemonByName" class="mx-auto max-w-52" />
     </div>
     <div v-if="!isFetching && !isFiltering"
       class="grid mx-auto px-4 container grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 w-full place-items-center">
