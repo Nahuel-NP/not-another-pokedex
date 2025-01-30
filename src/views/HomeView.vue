@@ -10,6 +10,7 @@ import { useQuery, keepPreviousData } from '@tanstack/vue-query'
 import { getPokemons } from '../utils/getAllPokemons'
 import { usePokemonStore } from '../stores/pokemonStore';
 import { useRoute, useRouter } from 'vue-router';
+import Pagination from '@/components/home/Pagination.vue'
 
 const store = usePokemonStore()
 const router = useRouter()
@@ -123,6 +124,7 @@ const onUpdateInput = (value: string) => {
     <div v-if="pokemonByName" class="w-full">
       <PokemonCard :pokemon="pokemonByName" class="mx-auto max-w-52" />
     </div>
+    
     <div v-if="!isFetching && !isFiltering"
       class="grid mx-auto px-4 container grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 w-full place-items-center">
       <PokemonCard v-for="pokemon in allPokemons?.results" :key="pokemon!.id" :pokemon="pokemon!" />
@@ -134,22 +136,6 @@ const onUpdateInput = (value: string) => {
       <h2 class="text-white text-center text-2xl font-semibold">Pokemon no encontrado</h2>
     </div>
 
-    <nav aria-label="Page navigation" class="flex justify-center mt-8" v-if="!isFiltering">
-      <div class="flex items-center -space-x-px h-10 text-base">
-        <button @click="prevPage()"
-          class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <PrevPageIcon />
-        </button>
-        <button
-          class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          {{ page }}
-        </button>
-        <button @click="nextPage()"
-          class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span class="sr-only">Next</span>
-          <NextPageIcon />
-        </button>
-      </div>
-    </nav>
+    <Pagination @next-page="nextPage" :is-filtering="isFiltering" :page="page" @prev-page="prevPage"/>
   </main>
 </template>
