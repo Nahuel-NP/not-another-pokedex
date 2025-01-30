@@ -4,8 +4,6 @@ import { getPokemonInfo } from '../utils/getPokemonByName'
 import PokemonCard from '@/components/PokemonCard.vue'
 import LoaderBall from '@/components/shared/LoaderBall.vue'
 import SearchForm from '@/components/home/SearchForm.vue'
-import NextPageIcon from '@/components/icons/NextPagIcon.vue'
-import PrevPageIcon from '@/components/icons/PrevPagIcon.vue'
 import { useQuery, keepPreviousData } from '@tanstack/vue-query'
 import { getPokemons } from '../utils/getAllPokemons'
 import { usePokemonStore } from '../stores/pokemonStore';
