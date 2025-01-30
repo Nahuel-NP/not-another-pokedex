@@ -27,7 +27,7 @@ describe('Test PokemonCard component', () => {
 
     const wrapper = mount(PokemonCard, {
       props: {
-        pokemon: testPokemon 
+        pokemon: testPokemon
       }, global: {
         plugins: [router]
       }
@@ -36,23 +36,19 @@ describe('Test PokemonCard component', () => {
 
   })
 
-  test('should call showDetails function',  async () => {
+  test('should call showDetails function', async () => {
 
-    const mockShowDetails = vitest.fn()
     const wrapper = mount(PokemonCard, {
       props: {
         pokemon: testPokemon
       }, global: {
         plugins: [router]
-      },
-      data: () => ({
-        showDetails: mockShowDetails
-      })
+      }
     })
-
+    const spy = vitest.spyOn(wrapper.vm, 'showDetails' as any)
     await wrapper.find('div').trigger('click')
-    expect(mockShowDetails).toHaveBeenCalled()
-    
+    expect(spy).toHaveBeenCalled()
+
 
   })
 })
