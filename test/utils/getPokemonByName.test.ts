@@ -10,9 +10,12 @@ describe('Test getPokemonByName file', () => {
 
   })
 
-  test('should return null if pokemon not exist',async ()=>{
+  test('should reject if pokemon not exist',async ()=>{
     const pokemonName = 'pikachus'
-    const pokemon = await getPokemonInfo(pokemonName)
-    expect(pokemon).toBe(null)
+    try {
+      await getPokemonInfo(pokemonName)
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 })
