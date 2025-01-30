@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, type Ref,watch } from 'vue'
+import { computed, ref, type Ref, watch } from 'vue'
 import { getPokemonInfo } from '../utils/getPokemonByName'
 import PokemonCard from '@/components/PokemonCard.vue'
 import LoaderBall from '@/components/shared/LoaderBall.vue'
@@ -28,14 +28,10 @@ const page = computed({
 })
 
 
-
-
-
 const searchByName = async (nameToSearch: Ref<string>) => {
   const data = await getPokemonInfo(nameToSearch.value.toLowerCase())
   return data
 }
-
 
 
 const {
@@ -122,8 +118,8 @@ const onUpdateInput = (value: string) => {
     <div v-if="pokemonByName" class="w-full">
       <PokemonCard :pokemon="pokemonByName" class="mx-auto max-w-52" />
     </div>
-    
-    <div v-if="!isFetching && !isFiltering"
+
+    <div data-testid="grid-elements" v-if="!isFetching && !isFiltering"
       class="grid mx-auto px-4 container grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 w-full place-items-center">
       <PokemonCard v-for="pokemon in allPokemons?.results" :key="pokemon!.id" :pokemon="pokemon!" />
     </div>
@@ -134,6 +130,6 @@ const onUpdateInput = (value: string) => {
       <h2 class="text-white text-center text-2xl font-semibold">Pokemon no encontrado</h2>
     </div>
 
-    <Pagination @next-page="nextPage" :is-filtering="isFiltering" :page="page" @prev-page="prevPage"/>
+    <Pagination @next-page="nextPage" :is-filtering="isFiltering" :page="page" @prev-page="prevPage" />
   </main>
 </template>

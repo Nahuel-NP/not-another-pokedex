@@ -1,7 +1,5 @@
 import { mount } from '@vue/test-utils'
 import PokemonCard from '@/components/PokemonCard.vue';
-import type { Pokemon } from '@/interfaces/pokeapi';
-import { getPokemonInfo } from '@/utils/getPokemonByName';
 import { createPinia, setActivePinia } from 'pinia';
 import { createApp } from 'vue';
 import router from '@/router';
